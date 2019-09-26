@@ -1,0 +1,15 @@
+div.container {
+  div.row {
+    form {
+      width: 50%;
+
+      @media(max-width: 768px) {
+        width: 70%;
+      }
+
+      button.btn {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

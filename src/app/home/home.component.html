@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="container">
+  <h1 class="title">Choose your telecom operator:</h1>
+  <div class="row">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 provider" *ngFor="let provider of providers | async">
+      <div class="card" (click)="choose(provider)">
+        <img class="card-img-top" [src]="provider.image" [alt]="provider.name">
+        <div class="card-body">
+          <p class="card-text">{{ provider.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
