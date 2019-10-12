@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Provider } from '@shared/models';
+import { ProviderService } from '@shared/services';
 
-import { Provider } from '../shared/models';
-import { ProviderService } from '../shared/services';
+import { Observable } from 'rxjs';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
   public providers: Observable<Provider[]>;
@@ -23,8 +24,8 @@ export class HomeComponent implements OnInit {
     this.providers = this.providerService.get();
   }
 
-  public choose(provider: Provider) {
-    this.router.navigate(['refill', provider.id]);
+  public refill(id: string) {
+    this.router.navigate(['refill', id]);
   }
 
 }

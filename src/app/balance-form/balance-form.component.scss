@@ -1,15 +1,5 @@
-div.container {
-  div.row {
-    form {
-      width: 50%;
+@import "../../assets/styles/variables";
 
-      @media(max-width: 768px) {
-        width: 70%;
-      }
-
-      button.btn {
-        margin-bottom: 20px;
-      }
-    }
-  }
+.warn {
+  color: mat-color($warnPalette, 300);
 }

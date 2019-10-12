@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -17,7 +17,22 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "plugins": [
+      {"name": "@angular/language-service"}
+    ],
+    "paths": {
+      "@app/*": ["app/*"],
+      "@app": ["app"],
+      "@environment/*": ["app/environment/*"],
+      "@environment": ["app/environment"],
+      "@shared/*": ["app/shared/*"],
+      "@shared": ["app/shared"],
+      "@home/*": ["app/home/*"],
+      "@home": ["app/home"],
+      "@balance-form/*": ["app/balance-form/*"],
+      "@balance-form": ["app/balance-form"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

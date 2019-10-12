@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BalanceFormComponent } from './balance-form/balance-form.component';
-import { HomeComponent } from './home/home.component';
-
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'refill', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'refill/:id', component: BalanceFormComponent },
+  { path: 'home', loadChildren: () =>
+      import('./home/home.module').then(m => m.HomeModule)
+  },
+  { path: 'refill/:id', loadChildren: () =>
+      import('./balance-form/balance-form.module').then(m => m.BalanceFormModule)
+  },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({

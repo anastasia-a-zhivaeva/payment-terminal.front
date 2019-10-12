@@ -1,32 +1,42 @@
-<app-header></app-header>
-<div class="container">
-  <div class="row justify-content-center">
-    <form [formGroup]="refillForm" (submit)="submit()" *ngIf="provider">
-      <h3>{{ provider?.name }}</h3>
-      <div class="form-group">
-        <label for="phoneNumber">Phone number</label>
-        <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number"
-               formControlName="phoneNumber" mask="+0 (000) 000-00-00" [dropSpecialCharacters]="false">
-      </div>
-      <div class="form-group">
-        <label for="amount">Refill amount, RUB</label>
-        <input type="text" class="form-control" id="amount" placeholder="Enter refill amount"
-               formControlName="amount"  mask="0*.00" [dropSpecialCharacters]="false">
-        <small class="form-text text-danger" *ngIf="amount.errors?.min">
-          Refill amount must be greater than or equal to 1 RUB
-        </small>
-        <small class="form-text text-danger" *ngIf="amount.errors?.max">
-          Refill amount must be less than or equal 1000 RUB
-        </small>
-      </div>
-      <button type="submit" class="btn btn-primary" [disabled]="refillForm.invalid">Submit</button>
-
-      <small class="form-text text-danger" *ngIf="errorMessage">
-        {{ errorMessage }}
-      </small>
-      <small class="form-text text-success" *ngIf="successMessage">
-        {{ successMessage }}
-      </small>
-    </form>
+<form *ngIf="provider"
+      class="container"
+      [formGroup]="refillForm"
+      (submit)="submit()">
+  <div class="row mt-5 justify-content-center">
+    <h3 class="mat-display-1">{{ provider?.name }}</h3>
   </div>
-</div>
+  <div class="row justify-content-center">
+    <mat-form-field>
+      <input type="tel"
+             matInput id="phoneNumber"
+             placeholder="Enter phone number"
+             formControlName="phoneNumber"
+             mask="+0 (000) 000-00-00"
+             [dropSpecialCharacters]="false">
+    </mat-form-field>
+  </div>
+  <div class="row justify-content-center">
+    <mat-form-field>
+      <input type="text"
+             matInput id="amount"
+             placeholder="Refill amount, RUB"
+             formControlName="amount"
+             mask="0*.00"
+             [dropSpecialCharacters]="false">
+      <mat-hint *ngIf="amount.errors && amount.touched" class="warn">
+        {{ amount.errors.min ?
+          'Refill amount must be greater than or equal to 1 RUB' :
+          'Refill amount must be less than or equal 1000 RUB' }}
+      </mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="row mt-4 justify-content-center">
+    <button type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="refillForm.invalid">
+      Submit
+    </button>
+  </div>
+</form>
+

@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule, MatSnackBarModule,
+  MatToolbarModule,
+} from '@angular/material';
 import { RouterModule } from '@angular/router';
 /**
  * Third-party modules
@@ -10,14 +16,22 @@ import { NgxMaskModule } from 'ngx-mask';
 /**
  * Components
  */
-import { HeaderComponent } from './components';
+
 /**
  * Services
  */
 import { ProviderService, RefillService } from './services';
 
 const components = [
-  HeaderComponent,
+];
+
+const matModules = [
+  MatToolbarModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatButtonModule,
+  MatSnackBarModule,
 ];
 
 const services = [
@@ -31,17 +45,17 @@ const services = [
   ],
   imports: [
     CommonModule,
-    BrowserModule,
     ReactiveFormsModule,
     RouterModule,
     NgxMaskModule.forRoot(),
+    ...matModules,
   ],
   exports: [
-    BrowserModule,
     ReactiveFormsModule,
     RouterModule,
     NgxMaskModule,
     ...components,
+    ...matModules,
   ],
 })
 export class SharedModule {

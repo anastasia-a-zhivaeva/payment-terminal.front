@@ -4,10 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
 
-import { Provider } from '../shared/models';
-import { ProviderService } from '../shared/services';
-import { SharedModule } from '../shared/shared.module';
-import { HomeComponent } from './home.component';
+import { Provider } from '@shared/models';
+import { ProviderService } from '@shared/services';
+import { SharedModule } from '@shared';
+import { HomeComponent } from '@home';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;

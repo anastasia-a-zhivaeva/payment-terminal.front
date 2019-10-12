@@ -1,26 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+
+import { Provider } from '@shared/models';
 
 import { timer } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-
-import { Provider } from '../shared/models';
 import { ProviderService, RefillService } from '../shared/services';
 
 @Component({
   selector: 'app-balance-form',
   templateUrl: './balance-form.component.html',
   styleUrls: ['./balance-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BalanceFormComponent implements OnInit {
   public provider: Provider;
   public refillForm: FormGroup;
-  public errorMessage: string;
-  public successMessage: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
+              private snackBar: MatSnackBar,
+              private ref: ChangeDetectorRef,
               private providerService: ProviderService,
               private refillService: RefillService) {
     this.refillForm = new FormGroup({
@@ -38,6 +40,7 @@ export class BalanceFormComponent implements OnInit {
       .subscribe((provider: Provider) => {
         this.provider = provider;
         this.refillForm.get('providerId').setValue(this.provider.id);
+        this.ref.detectChanges();
       });
   }
 
@@ -45,16 +48,23 @@ export class BalanceFormComponent implements OnInit {
     if (this.refillForm.invalid) {
       return;
     }
-    this.errorMessage = null;
     this.refillService.refill(this.refillForm.value)
       .subscribe(
         (successMessage: string) => {
-          this.successMessage  = successMessage;
-          timer(2000)
+          this.snackBar.open(successMessage, '', {
+            duration: 2000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          })
+            .afterDismissed()
             .subscribe(() => this.router.navigate(['home']));
         },
         (errorMessage: string) => {
-          this.errorMessage = errorMessage;
+          this.snackBar.open(errorMessage, '', {
+            duration: 2000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
         });
   }
 
