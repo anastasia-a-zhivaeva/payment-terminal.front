@@ -3,9 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { SharedModule } from '@shared';
 import { Refill } from '../models';
 
-@Injectable()
+@Injectable({
+  providedIn: SharedModule,
+})
 export class RefillService {
 
   constructor() {

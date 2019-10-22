@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
@@ -13,14 +13,6 @@ import { RouterModule } from '@angular/router';
  * Third-party modules
  */
 import { NgxMaskModule } from 'ngx-mask';
-/**
- * Components
- */
-
-/**
- * Services
- */
-import { ProviderService, RefillService } from './services';
 
 const components = [
 ];
@@ -32,11 +24,6 @@ const matModules = [
   MatInputModule,
   MatButtonModule,
   MatSnackBarModule,
-];
-
-const services = [
-  ProviderService,
-  RefillService,
 ];
 
 @NgModule({
@@ -59,12 +46,4 @@ const services = [
   ],
 })
 export class SharedModule {
-  public static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        ...services,
-      ],
-    };
-  }
 }

@@ -3,9 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { SharedModule } from '@shared';
 import { Provider } from '../models';
 
-@Injectable()
+@Injectable({
+  providedIn: SharedModule,
+})
 export class ProviderService {
 
   private mockProviders: Provider[] = [{

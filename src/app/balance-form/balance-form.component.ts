@@ -3,11 +3,10 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { Provider } from '@shared/models';
-
-import { timer } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { ProviderService, RefillService } from '../shared/services';
+
+import { Provider } from '@shared/models';
+import { ProviderService, RefillService } from '@shared/services';
 
 @Component({
   selector: 'app-balance-form',
