@@ -1,4 +1,4 @@
-# FrontendInterviewTest
+# Frontend Interview Test
 
 # Test exam on frontend developer vacancy
 ## The guidance for the test task.
@@ -10,7 +10,7 @@ For resolving the task it is allowed and necessary to use any frameworks and com
  - All calls to the API / server-side must be mocked.
  - We dont provide design of the screens here, so the level of design / pixel perfect layout will not be evaluated here.
  - The layout of all screens must be adaptive - to support different sizes of device screens, including mobile screens.
- - Big advatage would be to think through and design corresponding toolset to support future scalability of the project  
+ - Big advantage would be to think through and design corresponding toolset to support future scalability of the project  
 
 ### Payment terminal for the cell providers 
 
@@ -18,7 +18,7 @@ Develop (HTML/CSS-coding and implement client-side logic) application interface 
 
 1. Main screen
   - The list of supported telecom operators: MTS, Beeline, Megafon (implement flexibility to extend list of supported operators).
-  - Click on certain operator should redirec to the refilling screen.
+  - Click on certain operator should redirect to the refilling screen.
 2. Refill balance form
   - Identifier of the selected operator
   - Phone number input field (with mask and validation)
@@ -30,7 +30,6 @@ Develop (HTML/CSS-coding and implement client-side logic) application interface 
 
 The result of your work should be published here, on github. You should send us link to github repository with source code and a link to the working version of the app (for this you can use github pages or any other hosting).
 
-If you have questions, you can always ask them by contacting the person who gave you the task.
 
 ## Angular CLI README Information
 

@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "frontend-interview-test"
+  "defaultProject": "frontend-interview-test",
+  "cli": {
+    "analytics": "abc44e5c-02af-44b8-a69d-98e940df9b3a"
+  }
 }
