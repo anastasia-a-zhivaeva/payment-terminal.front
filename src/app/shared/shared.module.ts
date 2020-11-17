@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { HammerModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 /**
  * Third-party modules
@@ -34,12 +35,14 @@ const matModules = [
     ReactiveFormsModule,
     RouterModule,
     NgxMaskModule.forRoot(),
+    HammerModule,
     ...matModules,
   ],
   exports: [
     ReactiveFormsModule,
     RouterModule,
     NgxMaskModule,
+    HammerModule,
     ...components,
     ...matModules,
   ],
