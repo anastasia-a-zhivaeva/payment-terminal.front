@@ -18,11 +18,11 @@ export class BalanceFormPage {
   }
 
   submit() {
-    return element(by.css('.btn-primary'));
+    return element(by.buttonText('Submit'));
   }
 
   message() {
-    return element(by.css('.form-text'));
+    return element(by.tagName('mat-hint'));
   }
 
 }

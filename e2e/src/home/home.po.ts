@@ -6,6 +6,6 @@ export class HomePage {
   }
 
   providers() {
-    return element.all(by.css('.provider'));
+    return element.all(by.tagName('app-provider-card'));
   }
 }

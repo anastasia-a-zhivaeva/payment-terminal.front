@@ -1,4 +1,4 @@
-import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -8,6 +8,7 @@ import { Provider } from '@shared/models';
 import { ProviderService } from '@shared/services';
 import { SharedModule } from '@shared';
 import { HomeComponent } from '@home';
+import { ProviderCardComponent } from '@home/provider-card';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -27,14 +28,15 @@ describe('HomeComponent', () => {
     image: 'assets/images/megafon.png',
   }];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        SharedModule.forRoot(), // In real project should be used mocked SharedModule
+        SharedModule, // In real project should be used mocked SharedModule
       ],
       declarations: [
         HomeComponent,
+        ProviderCardComponent
       ],
       providers: [
         {
@@ -62,7 +64,7 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
 
     expect(component.providers).toBeDefined();
-    expect(fixture.nativeElement.querySelectorAll('.provider').length).toBe(providers.length);
+    expect(fixture.nativeElement.querySelectorAll('app-provider-card').length).toBe(providers.length);
   }));
 
   it('after choosing operator navigate should be called', fakeAsync(() => {
@@ -73,7 +75,7 @@ describe('HomeComponent', () => {
     const router = debugElement.injector.get(Router);
     const navigateSpy = spyOn(router, 'navigate');
 
-    fixture.nativeElement.querySelector('.provider > .card').click();
+    fixture.nativeElement.querySelector('app-provider-card > mat-card').click();
 
     expect(navigateSpy).toHaveBeenCalledWith(['refill', '1']);
   }));
