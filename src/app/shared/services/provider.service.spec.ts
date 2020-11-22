@@ -1,3 +1,4 @@
+import { fakeAsync } from '@angular/core/testing';
 import { Provider } from '../models';
 import { ProviderService } from './provider.service';
 
@@ -8,17 +9,19 @@ describe('ProviderService', () => {
   });
 
 
-  it('get should return providers from observable', () => {
+  it('get should return providers from observable', done => {
     service.get().subscribe((providers: Provider[]) => {
       expect(providers).toBeDefined();
       expect(providers.length).toBe(3);
+      done();
     });
   });
 
-  it('getById should return provider from a observable', () => {
+  it('getById should return provider from a observable', done => {
     service.getById('1').subscribe((provider: Provider) => {
       expect(provider).toBeDefined();
       expect(provider.id).toBe('1');
+      done();
     });
   });
 });

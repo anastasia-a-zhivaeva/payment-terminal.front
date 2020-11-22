@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { mergeMap } from 'rxjs/operators';
@@ -47,23 +47,20 @@ export class BalanceFormComponent implements OnInit {
     if (this.refillForm.invalid) {
       return;
     }
+    const snackBarConfig: MatSnackBarConfig = {
+      duration: 2000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    };
     this.refillService.refill(this.refillForm.value)
       .subscribe(
         (successMessage: string) => {
-          this.snackBar.open(successMessage, '', {
-            duration: 2000,
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-          })
+          this.snackBar.open(successMessage, '', snackBarConfig)
             .afterDismissed()
             .subscribe(() => this.router.navigate(['home']));
         },
         (errorMessage: string) => {
-          this.snackBar.open(errorMessage, '', {
-            duration: 2000,
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-          });
+          this.snackBar.open(errorMessage, '', snackBarConfig);
         });
   }
 

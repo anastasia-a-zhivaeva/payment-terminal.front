@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { of, throwError } from 'rxjs';
@@ -19,6 +20,11 @@ describe('BalanceFormComponent', () => {
     id: '1',
     name: 'MTS',
     image: 'assets/images/mts.png',
+  };
+  const snackBarConfig: MatSnackBarConfig = {
+    duration: 2000,
+    horizontalPosition: 'right',
+    verticalPosition: 'top',
   };
 
   beforeEach(waitForAsync(() => {
@@ -70,7 +76,7 @@ describe('BalanceFormComponent', () => {
     expect(fixture.nativeElement.querySelector('form')).toBeDefined();
   }));
 
-  it('refillFrom amount value should be grater than 0 and less than 1001', fakeAsync(() => {
+  it('refillFrom amount value should be grater than 0 and less than 1001, mask should work', fakeAsync(() => {
     component.ngOnInit();
     tick(1000);
     fixture.detectChanges();
@@ -82,13 +88,15 @@ describe('BalanceFormComponent', () => {
 
     component.amount.setValue(100.111);
     fixture.detectChanges();
+    tick(1000);
     expect(component.amount.errors).toBeNull();
-    expect(component.amount.value).toBe(100.111);
+    expect(fixture.nativeElement.querySelector('#amount').value).toBe('100.11');
     expect(fixture.nativeElement.querySelector('mat-hint')).toBeNull();
 
     component.amount.setValue(0);
     component.refillForm.markAllAsTouched();
     fixture.detectChanges();
+    tick(1000);
     expect(component.amount.errors.min).toBeTruthy();
     expect(component.amount.errors.max).toBeUndefined();
     expect(fixture.nativeElement.querySelector('mat-hint').textContent).toBe(' Refill amount must be greater than or equal to 1 RUB ');
@@ -96,6 +104,7 @@ describe('BalanceFormComponent', () => {
     component.amount.setValue(1001);
     component.refillForm.markAllAsTouched();
     fixture.detectChanges();
+    tick(1000);
     expect(component.amount.errors.min).toBeUndefined();
     expect(component.amount.errors.max).toBeTruthy();
     expect(fixture.nativeElement.querySelector('mat-hint').textContent).toBe(' Refill amount must be less than or equal 1000 RUB ');
@@ -110,17 +119,14 @@ describe('BalanceFormComponent', () => {
     expect(component.refillForm.get('phoneNumber').errors.pattern).toBeUndefined();
 
     component.refillForm.get('phoneNumber').setValue('11');
-    component.refillForm.markAllAsTouched();
     fixture.detectChanges();
+    tick(1000);
     expect(component.refillForm.get('phoneNumber').errors.pattern).toBeTruthy();
-    expect(component.refillForm.get('phoneNumber').value).toBe('+1 (1');
     expect(fixture.nativeElement.querySelector('#phoneNumber').value).toBe('+1 (1');
 
     component.refillForm.get('phoneNumber').setValue('11111111111');
-    component.refillForm.markAllAsTouched();
     fixture.detectChanges();
-    expect(component.refillForm.get('phoneNumber').errors).toBeNull();
-    expect(component.refillForm.get('phoneNumber').value).toBe('+1 (111) 111-11-11');
+    tick(1000);
     expect(fixture.nativeElement.querySelector('#phoneNumber').value).toBe('+1 (111) 111-11-11');
   }));
 
@@ -134,16 +140,18 @@ describe('BalanceFormComponent', () => {
 
     component.amount.setValue(10);
     fixture.detectChanges();
+    tick(1000);
     expect(component.refillForm.invalid).toBeTruthy();
     expect(fixture.nativeElement.querySelector('button[type=submit]').getAttribute('disabled')).toBe('true');
 
     component.refillForm.get('phoneNumber').setValue('+1 (111) 111-11-11');
     fixture.detectChanges();
+    tick(1000);
     expect(component.refillForm.invalid).toBeFalsy();
     expect(fixture.nativeElement.querySelector('button[type=submit]').getAttribute('disabled')).toBeNull();
   }));
 
-  it('if refillForm invalid refill method should not be called', () => {
+  it('if refillForm invalid, refill method should not be called', () => {
     const refillService = debugElement.injector.get(RefillService);
     const refillSpy = spyOn(refillService, 'refill');
 
@@ -152,7 +160,7 @@ describe('BalanceFormComponent', () => {
     expect(refillSpy).not.toHaveBeenCalled();
   });
 
-  it('if refill is successful navigate should be called', fakeAsync(() => {
+  it('if refill is successful, snack bar should be opened with Success message', fakeAsync(() => {
     component.amount.setValue(10);
     component.refillForm.get('phoneNumber').setValue('+1 (111) 111-11-11');
     component.refillForm.get('providerId').setValue('1');
@@ -160,32 +168,35 @@ describe('BalanceFormComponent', () => {
     fixture.detectChanges();
 
     const refillService = debugElement.injector.get(RefillService);
-    const refillSpy = spyOn(refillService, 'refill').and.returnValue(of('Success'));
+    const successfulMessage = 'Success';
+    const refillSpy = spyOn(refillService, 'refill').and.returnValue(of(successfulMessage));
 
-    const router = debugElement.injector.get(Router);
-    const navigateSpy = spyOn(router, 'navigate');
+    const snackBar = debugElement.injector.get(MatSnackBar);
+    const snackByOpenSpy = spyOn(snackBar, 'open').and
+      .returnValue({ afterDismissed: () => of() });
 
     component.submit();
     expect(refillSpy).toHaveBeenCalledWith(component.refillForm.value);
-    tick(2000);
-    expect(navigateSpy).toHaveBeenCalledWith(['home']);
+    tick(3000);
+    expect(snackByOpenSpy).toHaveBeenCalledWith(successfulMessage, '', snackBarConfig);
   }));
 
-  it('if refill is unsuccessful navigate should not be called', fakeAsync(() => {
+  it('if refill is unsuccessful, snack bar should be opened with Error message', fakeAsync(() => {
     component.amount.setValue(10);
     component.refillForm.get('phoneNumber').setValue('+1 (111) 111-11-11');
     component.refillForm.get('providerId').setValue('1');
     fixture.detectChanges();
 
     const refillService = debugElement.injector.get(RefillService);
-    const refillSpy = spyOn(refillService, 'refill').and.returnValue(throwError('Error'));
+    const errorMessage = 'Error';
+    const refillSpy = spyOn(refillService, 'refill').and.returnValue(throwError(errorMessage));
 
-    const router = debugElement.injector.get(Router);
-    const navigateSpy = spyOn(router, 'navigate');
+    const snackBar = debugElement.injector.get(MatSnackBar);
+    const snackByOpenSpy = spyOn(snackBar, 'open');
 
     component.submit();
     expect(refillSpy).toHaveBeenCalledWith(component.refillForm.value);
-    tick(2000);
-    expect(navigateSpy).not.toHaveBeenCalled();
+    tick(3000);
+    expect(snackByOpenSpy).toHaveBeenCalledWith(errorMessage, '', snackBarConfig);
   }));
 });
