@@ -7,8 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of, throwError } from 'rxjs';
 
-import { Provider } from '@shared/models';
-import { ProviderService, RefillService } from '../shared/services';
+import { Provider } from '@core/interfaces';
+import { ProviderService, RefillService } from '@core/services';
 import { SharedModule } from '@shared';
 import { BalanceFormComponent } from './balance-form.component';
 

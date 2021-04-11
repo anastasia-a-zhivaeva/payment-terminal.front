@@ -28,6 +28,8 @@
       "@environment": ["app/environment"],
       "@shared/*": ["app/shared/*"],
       "@shared": ["app/shared"],
+      "@core/*": ["app/core/*"],
+      "@core": ["app/core"],
       "@home/*": ["app/home/*"],
       "@home": ["app/home"],
       "@balance-form/*": ["app/balance-form/*"],

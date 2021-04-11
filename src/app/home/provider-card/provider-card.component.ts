@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Provider } from '@shared/models';
+import { Provider } from '@core/interfaces';
 
 
 @Component({

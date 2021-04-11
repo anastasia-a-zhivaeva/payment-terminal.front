@@ -4,8 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
 
-import { Provider } from '@shared/models';
-import { ProviderService } from '@shared/services';
+import { Provider } from '@core/interfaces';
+import { ProviderService } from '@core/services';
 import { SharedModule } from '@shared';
 import { HomeComponent } from '@home';
 import { ProviderCardComponent } from '@home/provider-card';

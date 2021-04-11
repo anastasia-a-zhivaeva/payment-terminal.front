@@ -1,4 +1,4 @@
-import { RefillService } from './refill.service';
+import { RefillService } from '@core/services';
 
 describe('RefillService', () => {
   let service: RefillService;

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Provider } from '@shared/models';
-import { ProviderService } from '@shared/services';
+import { Provider } from '@core/interfaces';
+import { ProviderService } from '@core/services';
 
 import { Observable } from 'rxjs';
 

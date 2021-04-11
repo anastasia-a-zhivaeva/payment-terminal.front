@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of, timer } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { SharedModule } from '@shared';
-import { Provider } from '../models';
+import { Provider } from '@core/interfaces';
 
 @Injectable({
-  providedIn: SharedModule,
+  providedIn: 'root',
 })
 export class ProviderService {
 
@@ -31,14 +30,14 @@ export class ProviderService {
   public get(): Observable<Provider[]> {
     return timer(1000)
       .pipe(
-        switchMap(() => of(this.mockProviders)),
+        map((_) => this.mockProviders),
       );
   }
 
   public getById(id: string): Observable<Provider> {
     return timer(1000)
       .pipe(
-        switchMap(() => of(this.mockProviders.find((provider: Provider) => provider.id === id))),
+        map((_) => this.mockProviders.find((provider: Provider) => provider.id === id)),
       );
   }
 }

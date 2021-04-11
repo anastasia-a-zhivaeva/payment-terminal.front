@@ -1,6 +1,5 @@
-import { fakeAsync } from '@angular/core/testing';
-import { Provider } from '../models';
-import { ProviderService } from './provider.service';
+import { Provider } from '@core/interfaces';
+import { ProviderService } from '@core/services';
 
 describe('ProviderService', () => {
   let service: ProviderService;

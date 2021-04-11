@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BalanceFormComponent, BalanceFormRoutingModule } from '@balance-form';
 import { SharedModule } from '@shared';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { SharedModule } from '@shared';
     CommonModule,
     SharedModule,
     BalanceFormRoutingModule,
+    NgxMaskModule.forChild()
   ]
 })
 export class BalanceFormModule { }
