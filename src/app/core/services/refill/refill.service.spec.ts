@@ -13,8 +13,8 @@ describe('RefillService', () => {
         expect(successMessage).toBeDefined();
         done();
       },
-      (errorMessage: string) => {
-        expect(errorMessage).toBe('Refill is unsuccessful. Please try again.');
+      (error) => {
+        expect(error.message).toBe('Refill is unsuccessful. Please try again.');
         done();
       },
     );

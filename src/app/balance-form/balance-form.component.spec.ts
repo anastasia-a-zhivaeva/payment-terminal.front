@@ -4,6 +4,8 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CoreModule } from '@core/core.module';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { of, throwError } from 'rxjs';
 
@@ -33,6 +35,8 @@ describe('BalanceFormComponent', () => {
         CommonModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        CoreModule,
+        NgxMaskModule.forChild(),
         SharedModule, // In real project should be used mocked SharedModule
       ],
       declarations: [
@@ -189,7 +193,7 @@ describe('BalanceFormComponent', () => {
 
     const refillService = debugElement.injector.get(RefillService);
     const errorMessage = 'Error';
-    const refillSpy = spyOn(refillService, 'refill').and.returnValue(throwError(errorMessage));
+    const refillSpy = spyOn(refillService, 'refill').and.returnValue(throwError(new Error(errorMessage)));
 
     const snackBar = debugElement.injector.get(MatSnackBar);
     const snackByOpenSpy = spyOn(snackBar, 'open');
