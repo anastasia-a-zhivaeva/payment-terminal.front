@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend-interview-test": {
+    "payment-terminal-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/frontend-interview-test",
+            "outputPath": "dist/payment-terminal-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "frontend-interview-test:build"
+            "browserTarget": "payment-terminal-front:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "frontend-interview-test:build:production"
+              "browserTarget": "payment-terminal-front:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontend-interview-test:build"
+            "browserTarget": "payment-terminal-front:build"
           }
         },
         "test": {
@@ -121,18 +121,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "frontend-interview-test:serve"
+            "devServerTarget": "payment-terminal-front:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "frontend-interview-test:serve:production"
+              "devServerTarget": "payment-terminal-front:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "frontend-interview-test",
+  "defaultProject": "payment-terminal-front",
   "cli": {
     "analytics": "abc44e5c-02af-44b8-a69d-98e940df9b3a"
   }

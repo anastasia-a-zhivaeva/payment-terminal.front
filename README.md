@@ -1,10 +1,15 @@
-# Frontend Interview Test
+# Payment terminal for Cell providers
 
-# Test exam on frontend developer vacancy
-## The guidance for the test task.
+## Test exam on frontend developer vacancy
+After providing the code to the company, I continued working on it to practice development skills.
+
+
+<details>
+<summary>The guidance for the test task</summary>
+
 For resolving the task it is allowed and necessary to use any frameworks and components which would save your time and allow to solve the task optimally. However, we ask you to provide short description of frameworks or libraries that were used and what for.
  
-## Practical test
+#### Practical test
 
  - We dont have full detailed requirements to the system functionality here as they are not necessary in this task and you are allowed to make certain assumptions. The purpose of this task is to assess your practice skills of developing and designing the client part of web applications.
  - All calls to the API / server-side must be mocked.
@@ -12,7 +17,7 @@ For resolving the task it is allowed and necessary to use any frameworks and com
  - The layout of all screens must be adaptive - to support different sizes of device screens, including mobile screens.
  - Big advantage would be to think through and design corresponding toolset to support future scalability of the project  
 
-### Payment terminal for the cell providers 
+#### Payment terminal for the cell providers 
 
 Develop (HTML/CSS-coding and implement client-side logic) application interface for the terminal providing the service of refilling the balance of cellular operators. The application should have the following screens / basic input and control elements:
 
@@ -24,12 +29,14 @@ Develop (HTML/CSS-coding and implement client-side logic) application interface 
   - Phone number input field (with mask and validation)
   - The field for entering the amount of refill in rubles (with mask and validation, min possible amount - 1 rub, max - 1000 rubles)
   - Submit button - should wait for a response from the server, show a message about the success or error. In case of success, return to the main screen. Success and error should be implemented randomly.
- 
 
-## Comments
+#### Comments
 
 The result of your work should be published here, on github. You should send us link to github repository with source code and a link to the working version of the app (for this you can use github pages or any other hosting).
+</details>
 
+This is the [board](https://github.com/users/anastasia-a-zhivaeva/projects/2) of this project where you can check the progress. \
+The version 1.0.0 is what was provided as a result of test exam.
 
 ## Angular CLI README Information
 
