@@ -1,6 +1,6 @@
 {
   "name": "payment-terminal-front",
-  "version": "1.0.0-development",
+  "version": "1.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
