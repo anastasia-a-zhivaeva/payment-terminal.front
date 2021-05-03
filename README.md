@@ -1,5 +1,7 @@
 # Payment terminal for Cell providers
 
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 ## Test exam on frontend developer vacancy
 
 After providing the code to the company, I continued working on it to practice development skills.
@@ -41,6 +43,8 @@ The result of your work should be published here, on github. You should send us 
 
 This is the [board](https://github.com/users/anastasia-a-zhivaeva/projects/2) of this project where you can check the progress. \
 The version 1.0.0 is what was provided as a result of test exam.
+
+This repository uses [conventional commits](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-format) and [semantic release](https://github.com/semantic-release/semantic-release).
 
 ## Angular CLI README Information
 
