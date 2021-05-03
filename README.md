@@ -1,5 +1,7 @@
 # Payment terminal for Cell providers
 
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 ## Test exam on frontend developer vacancy
 
 After providing the code to the company, I continued working on it to practice development skills.
