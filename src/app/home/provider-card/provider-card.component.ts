@@ -2,12 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 
 import { Provider } from '@core/interfaces';
 
-
 @Component({
   selector: 'app-provider-card',
   templateUrl: './provider-card.component.html',
   styleUrls: ['./provider-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProviderCardComponent {
   @Input() provider: Provider;

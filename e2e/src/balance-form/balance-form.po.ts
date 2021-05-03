@@ -24,5 +24,4 @@ export class BalanceFormPage {
   message() {
     return element(by.tagName('mat-hint'));
   }
-
 }

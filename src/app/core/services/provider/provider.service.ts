@@ -9,35 +9,31 @@ import { Provider } from '@core/interfaces';
   providedIn: 'root',
 })
 export class ProviderService {
+  private mockProviders: Provider[] = [
+    {
+      id: '1',
+      name: 'MTS',
+      image: 'assets/images/mts.png',
+    },
+    {
+      id: '2',
+      name: 'Beeline',
+      image: 'assets/images/beeline.png',
+    },
+    {
+      id: '3',
+      name: 'MegaFon',
+      image: 'assets/images/megafon.png',
+    },
+  ];
 
-  private mockProviders: Provider[] = [{
-    id: '1',
-    name: 'MTS',
-    image: 'assets/images/mts.png',
-  }, {
-    id: '2',
-    name: 'Beeline',
-    image: 'assets/images/beeline.png',
-  }, {
-    id: '3',
-    name: 'MegaFon',
-    image: 'assets/images/megafon.png',
-  }];
-
-  constructor() {
-  }
+  constructor() {}
 
   public get(): Observable<Provider[]> {
-    return timer(1000)
-      .pipe(
-        map((_) => this.mockProviders),
-      );
+    return timer(1000).pipe(map((_) => this.mockProviders));
   }
 
   public getById(id: string): Observable<Provider> {
-    return timer(1000)
-      .pipe(
-        map((_) => this.mockProviders.find((provider: Provider) => provider.id === id)),
-      );
+    return timer(1000).pipe(map((_) => this.mockProviders.find((provider: Provider) => provider.id === id)));
   }
 }

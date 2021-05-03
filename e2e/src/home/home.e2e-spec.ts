@@ -2,7 +2,6 @@ import { browser } from 'protractor';
 
 import { HomePage } from './home.po';
 
-
 describe('workspace-project Home', () => {
   let page: HomePage;
 

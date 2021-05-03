@@ -6,7 +6,6 @@ import { ProviderService } from '@core/services';
 
 import { Observable } from 'rxjs';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,9 +15,7 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
   public providers: Observable<Provider[]>;
 
-  constructor(private router: Router,
-              private providerService: ProviderService) {
-  }
+  constructor(private router: Router, private providerService: ProviderService) {}
 
   ngOnInit() {
     this.providers = this.providerService.get();
@@ -27,5 +24,4 @@ export class HomeComponent implements OnInit {
   public refill(id: string) {
     this.router.navigate(['refill', id]);
   }
-
 }

@@ -2,7 +2,6 @@ import { browser } from 'protractor';
 
 import { BalanceFormPage } from './balance-form.po';
 
-
 describe('workspace-project BalanceForm', () => {
   let page: BalanceFormPage;
 

@@ -14,43 +14,47 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let debugElement;
   let fixture;
-  const providers: Provider[] = [{
-    id: '1',
-    name: 'MTS',
-    image: 'assets/images/mts.png',
-  }, {
-    id: '2',
-    name: 'Beeline',
-    image: 'assets/images/beeline.png',
-  }, {
-    id: '3',
-    name: 'MegaFon',
-    image: 'assets/images/megafon.png',
-  }];
+  const providers: Provider[] = [
+    {
+      id: '1',
+      name: 'MTS',
+      image: 'assets/images/mts.png',
+    },
+    {
+      id: '2',
+      name: 'Beeline',
+      image: 'assets/images/beeline.png',
+    },
+    {
+      id: '3',
+      name: 'MegaFon',
+      image: 'assets/images/megafon.png',
+    },
+  ];
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        SharedModule, // In real project should be used mocked SharedModule
-      ],
-      declarations: [
-        HomeComponent,
-        ProviderCardComponent
-      ],
-      providers: [
-        {
-          provide: ProviderService, useValue: {
-            get: () => of(providers),
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule,
+          SharedModule, // In real project should be used mocked SharedModule
+        ],
+        declarations: [HomeComponent, ProviderCardComponent],
+        providers: [
+          {
+            provide: ProviderService,
+            useValue: {
+              get: () => of(providers),
+            },
           },
-        },
-      ],
-    }).compileComponents();
+        ],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(HomeComponent);
-    component = fixture.componentInstance;
-    debugElement = fixture.debugElement;
-  }));
+      fixture = TestBed.createComponent(HomeComponent);
+      component = fixture.componentInstance;
+      debugElement = fixture.debugElement;
+    }),
+  );
 
   it('should create the component', () => {
     expect(component).toBeDefined();

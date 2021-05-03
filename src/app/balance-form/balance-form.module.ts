@@ -5,16 +5,8 @@ import { BalanceFormComponent, BalanceFormRoutingModule } from '@balance-form';
 import { SharedModule } from '@shared';
 import { NgxMaskModule } from 'ngx-mask';
 
-
 @NgModule({
-  declarations: [
-    BalanceFormComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    BalanceFormRoutingModule,
-    NgxMaskModule.forChild()
-  ]
+  declarations: [BalanceFormComponent],
+  imports: [CommonModule, SharedModule, BalanceFormRoutingModule, NgxMaskModule.forChild()],
 })
-export class BalanceFormModule { }
+export class BalanceFormModule {}

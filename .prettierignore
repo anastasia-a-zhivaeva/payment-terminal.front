@@ -1,0 +1,8 @@
+package.json
+package-lock.json
+dist
+angular.json
+.vscode/*
+node_modules
+release
+.idea/*

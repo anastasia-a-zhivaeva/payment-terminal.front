@@ -7,16 +7,7 @@ import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    HammerModule,
-    NgxMaskModule.forRoot(),
-    MatToolbarModule,
-  ],
-  exports: [
-    NgxMaskModule,
-    HammerModule,
-    MatToolbarModule,
-  ]
+  imports: [CommonModule, HammerModule, NgxMaskModule.forRoot(), MatToolbarModule],
+  exports: [NgxMaskModule, HammerModule, MatToolbarModule],
 })
-export class CoreModule { }
+export class CoreModule {}

@@ -8,13 +8,14 @@ describe('ProviderCardComponent', () => {
   let component: ProviderCardComponent;
   let fixture: ComponentFixture<ProviderCardComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProviderCardComponent ],
-      imports: [BrowserAnimationsModule, SharedModule]
-    })
-    .compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ProviderCardComponent],
+        imports: [BrowserAnimationsModule, SharedModule],
+      }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProviderCardComponent);
@@ -22,7 +23,7 @@ describe('ProviderCardComponent', () => {
     component.provider = {
       id: '1',
       image: 'image',
-      name: 'name'
+      name: 'name',
     };
     fixture.detectChanges();
   });

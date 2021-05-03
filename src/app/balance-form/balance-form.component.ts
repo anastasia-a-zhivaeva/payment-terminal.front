@@ -19,12 +19,14 @@ export class BalanceFormComponent extends Unsubscribe implements OnInit {
   public provider: Provider;
   public refillForm: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private snackBar: MatSnackBar,
-              private ref: ChangeDetectorRef,
-              private providerService: ProviderService,
-              private refillService: RefillService) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private ref: ChangeDetectorRef,
+    private providerService: ProviderService,
+    private refillService: RefillService,
+  ) {
     super();
 
     this.refillForm = new FormGroup({
@@ -56,21 +58,19 @@ export class BalanceFormComponent extends Unsubscribe implements OnInit {
       horizontalPosition: 'right',
       verticalPosition: 'top',
     };
-    this.refillService.refill(this.refillForm.value)
+    this.refillService
+      .refill(this.refillForm.value)
       .pipe(
         takeUntil(this.unsubscribe),
-        concatMap((successMessage: string) =>
-          this.snackBar.open(successMessage, '', snackBarConfig).afterDismissed()
-        )
+        concatMap((successMessage: string) => this.snackBar.open(successMessage, '', snackBarConfig).afterDismissed()),
       )
       .subscribe(
         () => this.router.navigate(['home']),
-        (error) => this.snackBar.open(error.message, '', snackBarConfig)
+        (error) => this.snackBar.open(error.message, '', snackBarConfig),
       );
   }
 
   get amount(): AbstractControl {
     return this.refillForm.get('amount');
   }
-
 }

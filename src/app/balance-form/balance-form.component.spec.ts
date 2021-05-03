@@ -29,37 +29,39 @@ describe('BalanceFormComponent', () => {
     verticalPosition: 'top',
   };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        CoreModule,
-        NgxMaskModule.forChild(),
-        SharedModule, // In real project should be used mocked SharedModule
-      ],
-      declarations: [
-        BalanceFormComponent,
-      ],
-      providers: [
-        {
-          provide: ActivatedRoute, useValue: {
-            params: of({ id: '1' }),
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          CommonModule,
+          RouterTestingModule,
+          BrowserAnimationsModule,
+          CoreModule,
+          NgxMaskModule.forChild(),
+          SharedModule, // In real project should be used mocked SharedModule
+        ],
+        declarations: [BalanceFormComponent],
+        providers: [
+          {
+            provide: ActivatedRoute,
+            useValue: {
+              params: of({ id: '1' }),
+            },
           },
-        },
-        {
-          provide: ProviderService, useValue: {
-            getById: (id: string) => of(provider),
+          {
+            provide: ProviderService,
+            useValue: {
+              getById: (id: string) => of(provider),
+            },
           },
-        },
-      ],
-    }).compileComponents();
+        ],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(BalanceFormComponent);
-    component = fixture.componentInstance;
-    debugElement = fixture.debugElement;
-  }));
+      fixture = TestBed.createComponent(BalanceFormComponent);
+      component = fixture.componentInstance;
+      debugElement = fixture.debugElement;
+    }),
+  );
 
   it('should create the component', () => {
     expect(component).toBeDefined();
@@ -103,7 +105,9 @@ describe('BalanceFormComponent', () => {
     tick(1000);
     expect(component.amount.errors.min).toBeTruthy();
     expect(component.amount.errors.max).toBeUndefined();
-    expect(fixture.nativeElement.querySelector('mat-hint').textContent).toBe(' Refill amount must be greater than or equal to 1 RUB ');
+    expect(fixture.nativeElement.querySelector('mat-hint').textContent).toBe(
+      ' Refill amount must be greater than or equal to 1 RUB ',
+    );
 
     component.amount.setValue(1001);
     component.refillForm.markAllAsTouched();
@@ -111,7 +115,9 @@ describe('BalanceFormComponent', () => {
     tick(1000);
     expect(component.amount.errors.min).toBeUndefined();
     expect(component.amount.errors.max).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('mat-hint').textContent).toBe(' Refill amount must be less than or equal 1000 RUB ');
+    expect(fixture.nativeElement.querySelector('mat-hint').textContent).toBe(
+      ' Refill amount must be less than or equal 1000 RUB ',
+    );
   }));
 
   it('refillFrom phoneNumber value should match regex, mask should work', fakeAsync(() => {
@@ -176,8 +182,9 @@ describe('BalanceFormComponent', () => {
     const refillSpy = spyOn(refillService, 'refill').and.returnValue(of(successfulMessage));
 
     const snackBar = debugElement.injector.get(MatSnackBar);
-    const snackByOpenSpy = spyOn(snackBar, 'open').and
-      .returnValue({ afterDismissed: () => of() });
+    const snackByOpenSpy = spyOn(snackBar, 'open').and.returnValue({
+      afterDismissed: () => of(),
+    });
 
     component.submit();
     expect(refillSpy).toHaveBeenCalledWith(component.refillForm.value);
