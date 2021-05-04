@@ -1,9 +1,19 @@
 version: 2.1
-jobs:
-  lint-and-build:
-    working_directory: ~/repo
+
+orbs:
+  aws-cli: circleci/aws-cli@2.0.0
+
+executors:
+  node-browser:
+    docker:
+      - image: circleci/node:14-browsers
+  node:
     docker:
       - image: circleci/node:lts
+
+jobs:
+  lint-and-build:
+    executor: node
     steps:
       - checkout
       - run:
@@ -26,9 +36,7 @@ jobs:
           command: npm run build
 
   unit:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:14-browsers
+    executor: node-browser
     steps:
       - checkout
       - run:
@@ -48,9 +56,7 @@ jobs:
           command: npm run test:ci
 
   e2e:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:14-browsers
+    executor: node-browser
     steps:
       - checkout
       - run:
@@ -78,9 +84,7 @@ jobs:
           command: npm run e2e
 
   release:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:lts
+    executor: node
     steps:
       - checkout
       - run:
@@ -96,6 +100,30 @@ jobs:
           paths:
             - node_modules
       - run: npx semantic-release
+
+  publish:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install npm
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run: npm run build
+      - aws-cli/setup:
+          profile-name: default
+      - run: |
+          aws s3 rm "s3://${S3_BUCKET_NAME}" --recursive
+          aws s3 cp ./dist "s3://${S3_BUCKET_NAME}/" --recursive
+          aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION_ID} --paths "/*"
 
 workflows:
   version: 2
@@ -115,3 +143,12 @@ workflows:
             branches:
               only: release
           context: GITHUB_TOKEN
+  publish-to-cloudfront:
+    jobs:
+      - publish:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+          context: AWS
