@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "src",
+    "emitDecoratorMetadata": false,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -25,8 +26,8 @@
       "@core": ["app/core"],
       "@home/*": ["app/home/*"],
       "@home": ["app/home"],
-      "@balance-form/*": ["app/balance-form/*"],
-      "@balance-form": ["app/balance-form"]
+      "@refill/*": ["app/refill/*"],
+      "@refill": ["app/refill"]
     }
   },
   "angularCompilerOptions": {

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Provider } from '@core/interfaces';
+import { Provider } from '@core/models';
 
 @Injectable({
   providedIn: 'root',
