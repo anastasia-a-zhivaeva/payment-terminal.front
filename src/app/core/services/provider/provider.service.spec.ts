@@ -1,4 +1,4 @@
-import { Provider } from '@core/interfaces';
+import { Provider } from '@core/models';
 import { ProviderService } from '@core/services';
 
 describe('ProviderService', () => {

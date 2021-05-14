@@ -1,0 +1,5 @@
+@import 'src/styles/variables';
+
+.warn {
+  color: mat-color($warnPalette, 300);
+}

@@ -6,9 +6,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-/**
- * Third-party modules
- */
 
 const components = [];
 
@@ -17,6 +14,6 @@ const matModules = [MatCardModule, MatFormFieldModule, MatInputModule, MatButton
 @NgModule({
   declarations: [...components],
   imports: [CommonModule, ReactiveFormsModule, ...matModules],
-  exports: [ReactiveFormsModule, ...components, ...matModules],
+  exports: [CommonModule, ReactiveFormsModule, ...components, ...matModules],
 })
 export class SharedModule {}
