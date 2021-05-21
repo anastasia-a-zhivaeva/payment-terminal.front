@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { RefillFormComponent } from './/containers';
+import { RefillFormComponent } from '@refill/containers';
 
 const routes: Routes = [{ path: '', component: RefillFormComponent }];
 
@@ -9,4 +9,4 @@ const routes: Routes = [{ path: '', component: RefillFormComponent }];
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class RefillFormRoutingModule {}
+export class RefillRoutingModule {}

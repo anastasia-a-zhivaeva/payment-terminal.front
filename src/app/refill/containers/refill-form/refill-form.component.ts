@@ -3,11 +3,13 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { concatMap, takeUntil } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { concatMap, filter, takeUntil } from 'rxjs/operators';
 
-import { Provider } from '@core/models';
+import { Provider } from '@core/interfaces';
 import { Unsubscribe } from '@core/utils';
-import { RefillFormFacade } from '@refill/refill-form.facade';
+import { RefillFacade } from '@refill/refill.facade';
+import { RefillStateModel } from '@refill/store/refill/refill.model';
 
 @Component({
   selector: 'app-refill-form',
@@ -16,15 +18,16 @@ import { RefillFormFacade } from '@refill/refill-form.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RefillFormComponent extends Unsubscribe implements OnInit {
-  public provider: Provider;
-  public refillForm: FormGroup;
+  provider: Provider;
+  refillForm: FormGroup;
+  refill$ = this.refillFacade.refill$;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
     private ref: ChangeDetectorRef,
-    private refillFormFacade: RefillFormFacade,
+    private refillFacade: RefillFacade,
   ) {
     super();
 
@@ -39,12 +42,37 @@ export class RefillFormComponent extends Unsubscribe implements OnInit {
     this.activatedRoute.params
       .pipe(
         takeUntil(this.unsubscribe),
-        concatMap((params: Params) => this.refillFormFacade.getProviderById(params.id)),
+        concatMap((params: Params) => this.refillFacade.getProviderById(params.id)),
       )
       .subscribe((provider: Provider) => {
         this.provider = provider;
         this.refillForm.get('providerId').setValue(this.provider.id);
         this.ref.markForCheck();
+      });
+
+    const snackBarConfig: MatSnackBarConfig = {
+      duration: 2000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    };
+
+    this.refill$
+      .pipe(
+        takeUntil(this.unsubscribe),
+        filter((refill: RefillStateModel) => !!refill),
+        concatMap((refill: RefillStateModel) => {
+          if (refill.errorMessage) {
+            this.snackBar.open(refill.errorMessage, '', snackBarConfig);
+            return EMPTY;
+          }
+          return this.snackBar.open(refill.successMessage, '', snackBarConfig).afterDismissed();
+        }),
+      )
+      .subscribe((_) => {
+        if (!_) return;
+
+        this.refillFacade.clear();
+        return this.router.navigate(['home']);
       });
   }
 
@@ -52,21 +80,7 @@ export class RefillFormComponent extends Unsubscribe implements OnInit {
     if (this.refillForm.invalid) {
       return;
     }
-    const snackBarConfig: MatSnackBarConfig = {
-      duration: 2000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-    };
-    this.refillFormFacade
-      .refill(this.refillForm.value)
-      .pipe(
-        takeUntil(this.unsubscribe),
-        concatMap((successMessage: string) => this.snackBar.open(successMessage, '', snackBarConfig).afterDismissed()),
-      )
-      .subscribe(
-        () => this.router.navigate(['home']),
-        (error) => this.snackBar.open(error.message, '', snackBarConfig),
-      );
+    this.refillFacade.refill(this.refillForm.value);
   }
 
   get amount(): AbstractControl {

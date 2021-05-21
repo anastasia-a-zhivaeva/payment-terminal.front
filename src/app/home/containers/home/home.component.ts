@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Provider } from '@core/models';
-import { HomeFacade } from '@home/home.facade';
-
 import { Observable } from 'rxjs';
+
+import { Provider } from '@core/interfaces';
+import { HomeFacade } from '@home/home.facade';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +12,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
-  public providers: Observable<Provider[]>;
+export class HomeComponent {
+  public providers$: Observable<Provider[]>;
 
-  constructor(private router: Router, private homeFacade: HomeFacade) {}
-
-  ngOnInit() {
-    this.providers = this.homeFacade.getProviders();
+  constructor(private router: Router, private homeFacade: HomeFacade) {
+    this.providers$ = this.homeFacade.providers$;
   }
 
   public refill(id: string) {

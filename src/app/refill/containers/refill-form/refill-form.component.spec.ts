@@ -6,12 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { NgxMaskModule } from 'ngx-mask';
-import { of, throwError } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
-import { Provider } from '@core/models';
+import { Provider } from '@core/interfaces';
 import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared';
-import { RefillFormFacade } from '@refill/refill-form.facade';
+import { RefillFacade } from '@refill/refill.facade';
 import { RefillFormComponent } from '@refill/containers';
 
 describe('RefillFormComponent', () => {
@@ -49,10 +49,12 @@ describe('RefillFormComponent', () => {
             },
           },
           {
-            provide: RefillFormFacade,
+            provide: RefillFacade,
             useValue: {
               getProviderById: () => of(provider),
               refill: () => '',
+              clear: () => undefined,
+              refill$: new Subject(),
             },
           },
         ],
@@ -163,7 +165,7 @@ describe('RefillFormComponent', () => {
   }));
 
   it('if refillForm invalid, refill method should not be called', () => {
-    const refillFormFacade = debugElement.injector.get(RefillFormFacade);
+    const refillFormFacade = debugElement.injector.get(RefillFacade);
     const refillSpy = spyOn(refillFormFacade, 'refill');
 
     component.submit();
@@ -178,19 +180,20 @@ describe('RefillFormComponent', () => {
     expect(component.refillForm.valid).toBe(true);
     fixture.detectChanges();
 
-    const refillFormFacade = debugElement.injector.get(RefillFormFacade);
-    const successfulMessage = 'Success';
-    const refillSpy = spyOn(refillFormFacade, 'refill').and.returnValue(of(successfulMessage));
-
     const snackBar = debugElement.injector.get(MatSnackBar);
     const snackByOpenSpy = spyOn(snackBar, 'open').and.returnValue({
       afterDismissed: () => of(),
     });
 
+    const refillFormFacade = debugElement.injector.get(RefillFacade);
+    const successMessage = 'Success';
+    refillFormFacade.refill$.next({ ...component.refillForm.value, successMessage });
+    const refillSpy = spyOn(refillFormFacade, 'refill');
+
     component.submit();
     expect(refillSpy).toHaveBeenCalledWith(component.refillForm.value);
     tick(3000);
-    expect(snackByOpenSpy).toHaveBeenCalledWith(successfulMessage, '', snackBarConfig);
+    expect(snackByOpenSpy).toHaveBeenCalledWith(successMessage, '', snackBarConfig);
   }));
 
   it('if refill is unsuccessful, snack bar should be opened with Error message', fakeAsync(() => {
@@ -199,12 +202,13 @@ describe('RefillFormComponent', () => {
     component.refillForm.get('providerId').setValue('1');
     fixture.detectChanges();
 
-    const refillFormFacade = debugElement.injector.get(RefillFormFacade);
-    const errorMessage = 'Error';
-    const refillSpy = spyOn(refillFormFacade, 'refill').and.returnValue(throwError(new Error(errorMessage)));
-
     const snackBar = debugElement.injector.get(MatSnackBar);
     const snackByOpenSpy = spyOn(snackBar, 'open');
+
+    const refillFormFacade = debugElement.injector.get(RefillFacade);
+    const errorMessage = 'Error';
+    refillFormFacade.refill$.next({ ...component.refillForm.value, errorMessage });
+    const refillSpy = spyOn(refillFormFacade, 'refill');
 
     component.submit();
     expect(refillSpy).toHaveBeenCalledWith(component.refillForm.value);

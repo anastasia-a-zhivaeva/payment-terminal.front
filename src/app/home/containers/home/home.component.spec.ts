@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
 
-import { Provider } from '@core/models';
+import { Provider } from '@core/interfaces';
 import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared';
 import { HomeFacade } from '@home/home.facade';
@@ -47,6 +47,7 @@ describe('HomeComponent', () => {
             provide: HomeFacade,
             useValue: {
               getProviders: () => of(providers),
+              providers$: of(providers),
             },
           },
         ],
@@ -62,19 +63,16 @@ describe('HomeComponent', () => {
     expect(component).toBeDefined();
   });
 
-  it('after ngOnInit should has providers', fakeAsync(() => {
-    expect(component.providers).toBeUndefined();
-    component.ngOnInit();
-    component.providers.subscribe((data: Provider[]) => expect(data).toBe(providers));
+  it('should has providers', fakeAsync(() => {
+    component.providers$.subscribe((data: Provider[]) => expect(data).toBe(providers));
     tick(1000);
     fixture.detectChanges();
 
-    expect(component.providers).toBeDefined();
+    expect(component.providers$).toBeDefined();
     expect(fixture.nativeElement.querySelectorAll('app-provider-card').length).toBe(providers.length);
   }));
 
   it('after choosing operator navigate should be called', fakeAsync(() => {
-    component.ngOnInit();
     tick(1000);
     fixture.detectChanges();
 
