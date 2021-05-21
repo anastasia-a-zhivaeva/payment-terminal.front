@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RefillForm } from '@refill/models';
+import { RefillForm } from '@refill/intefaces';
 
 @Injectable({
   providedIn: 'root',

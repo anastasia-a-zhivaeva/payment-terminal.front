@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { Provider } from '@core/models';
-import { ProviderService } from '@core/services';
+import { ProvidersStateModel } from '@store/providers/providers.model';
 
 @Injectable({ providedIn: 'root' })
 export class HomeFacade {
-  constructor(private providerService: ProviderService) {}
+  @Select((state) => state.providers) private _providers$: Observable<ProvidersStateModel>;
 
-  getProviders(): Observable<Provider[]> {
-    return this.providerService.get();
+  get providers$(): Observable<ProvidersStateModel> {
+    return this._providers$;
   }
 }

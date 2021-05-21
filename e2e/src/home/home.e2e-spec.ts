@@ -13,8 +13,9 @@ describe('workspace-project Home', () => {
     page.navigateTo();
   });
 
-  it('form should be displayed, submit button should be disabled', () => {
+  it('providers should be displayed', () => {
     page.navigateTo();
+    browser.sleep(1000);
 
     browser.wait(page.providers().first().getWebElement());
 

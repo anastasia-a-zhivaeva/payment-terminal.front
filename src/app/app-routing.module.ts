@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'refill/:id',
-    loadChildren: () => import('./refill/refill-form.module').then((m) => m.RefillFormModule),
+    loadChildren: () => import('./refill/refill.module').then((m) => m.RefillModule),
   },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];

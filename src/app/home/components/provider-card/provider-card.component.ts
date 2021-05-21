@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Provider } from '@core/models';
+import { Provider } from '@core/interfaces';
 
 @Component({
   selector: 'app-provider-card',

@@ -3,7 +3,7 @@
     <h1 class="mat-display-1">Choose your telecom operator:</h1>
   </div>
   <div class="row justify-content-center">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5" *ngFor="let provider of providers | async">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5" *ngFor="let provider of providers$ | async">
       <app-provider-card [provider]="provider" (refill)="refill($event)"></app-provider-card>
     </div>
   </div>

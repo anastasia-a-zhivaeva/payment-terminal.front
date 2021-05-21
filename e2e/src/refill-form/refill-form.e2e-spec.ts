@@ -15,6 +15,7 @@ describe('workspace-project RefillForm', () => {
 
   it('form should be displayed, submit button should be disabled', () => {
     page.navigateTo();
+    browser.sleep(1000);
 
     browser.wait(page.form().getWebElement());
 
@@ -26,6 +27,7 @@ describe('workspace-project RefillForm', () => {
 
   it('submit button should be enabled, when form is valid', () => {
     page.navigateTo();
+    browser.sleep(1000);
 
     browser.wait(page.form().getWebElement());
 
@@ -38,6 +40,7 @@ describe('workspace-project RefillForm', () => {
 
   it('submit button should be disabled, when form is invalid', async () => {
     page.navigateTo();
+    browser.sleep(1000);
 
     browser.wait(page.form().getWebElement());
 
@@ -62,6 +65,7 @@ describe('workspace-project RefillForm', () => {
 
   it('check text masks', () => {
     page.navigateTo();
+    browser.sleep(1000);
 
     browser.wait(page.form().getWebElement());
 

@@ -1,6 +1,8 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AppFacade } from '@app/app.facade';
 import { CoreModule } from '@core/core.module';
+import { StoreModule } from '@store/store.module';
 
 import { AppComponent } from './app.component';
 
@@ -10,6 +12,14 @@ describe('AppComponent', () => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule, CoreModule],
         declarations: [AppComponent],
+        providers: [
+          {
+            provide: AppFacade,
+            useValue: {
+              getProviders: (_) => undefined,
+            },
+          },
+        ],
       }).compileComponents();
     }),
   );

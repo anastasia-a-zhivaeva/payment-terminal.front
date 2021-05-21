@@ -1,5 +1,7 @@
+export type ID = string;
+
 export interface Provider {
-  id: string;
+  id: ID;
   name: string;
   image: string;
 }
