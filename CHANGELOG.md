@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/anastasia-a-zhivaeva/payment-terminal.front/compare/v1.0.3...v1.1.0) (2021-05-28)
+
+
+### Bug Fixes
+
+* update dependencies and fix some vulnerabilities ([b4c1bcd](https://github.com/anastasia-a-zhivaeva/payment-terminal.front/commit/b4c1bcd7fb43ad30ce13d3c9273385a20e0a167c)), closes [#26](https://github.com/anastasia-a-zhivaeva/payment-terminal.front/issues/26)
+
+
+### Features
+
+* add NGXS Store Manager, add Provider and Refill stores ([#25](https://github.com/anastasia-a-zhivaeva/payment-terminal.front/issues/25)) ([ad7076d](https://github.com/anastasia-a-zhivaeva/payment-terminal.front/commit/ad7076d2587366e77aebb5f5c9bbce77306c2c21)), closes [#13](https://github.com/anastasia-a-zhivaeva/payment-terminal.front/issues/13)
+
 ## [1.0.3](https://github.com/anastasia-a-zhivaeva/payment-terminal.front/compare/v1.0.2...v1.0.3) (2021-05-16)
 
 
