@@ -6,3 +6,4 @@ angular.json
 node_modules
 release
 .idea/*
+CHANGELOG.md

@@ -36,10 +36,6 @@
             "release": false
           },
           {
-            "type": "chore",
-            "release": "patch"
-          },
-          {
             "type": "build",
             "release": "patch"
           },
