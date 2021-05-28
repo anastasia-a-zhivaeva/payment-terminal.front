@@ -102,8 +102,8 @@ jobs:
       - run: npx semantic-release
       - run: git checkout master
       - run: git merge release
-      - run: git push
-      - run: git -d -r release
+      - run: git push -q https://${GITHUB_TOKEN}@github.com/anastasia-a-zhivaeva/payment-terminal.front.git master
+      - run: git push -q https://${GITHUB_TOKEN}@github.com/anastasia-a-zhivaeva/payment-terminal.front.git --delete release
 
   publish:
     executor: aws-cli/default
